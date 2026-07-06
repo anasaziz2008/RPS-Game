@@ -1,7 +1,7 @@
-let humanScore = 0;
+let playerScore = 0;
 let computerScore = 0;
-
-console.log("Hello World");
+let totalRounds = 0;
+let shouldReset = false;
 
 function getComputerChoice() {
     let index = Math.floor(Math.random() * 3);
@@ -15,54 +15,122 @@ function getComputerChoice() {
     }
 }
 
+const buttons = document.querySelectorAll("button")
+const rock = document.querySelector("#rock")
+const paper = document.querySelector("#paper")
+const scissors = document.querySelector("#scissors")
+const result = document.querySelector("ul")
 
-function getHumanChoice() {
-    let playerChoice = prompt("Enter your choice: rock, paper, or scissors");
-    return playerChoice;
-}
 
-function playRound(humanChoice, computerChoice) {
-    if (computerChoice === "rock" && humanChoice === "rock") {
-        return "Draw";
-    } else if (computerChoice === "rock" && humanChoice === "paper") {
-        humanScore++;
-        return "You win";
-    } else if (computerChoice === "rock" && humanChoice === "scissors") {
-        computerScore++;
-        return "Computer wins";
-    } else if (computerChoice === "paper" && humanChoice === "rock") {
-        computerScore++;
-        return "Computer wins";
-    } else if (computerChoice === "paper" && humanChoice === "paper") {
-        return "Draw";
-    } else if (computerChoice === "paper" && humanChoice === "scissors") {
-        humanScore++;
-        return "You win";
-    } else if (computerChoice === "scissors" && humanChoice === "scissors") {
-        return "Draw";
-    } else if (computerChoice === "scissors" && humanChoice === "paper") {
-        computerScore++;
-        return "Computer wins";
-    } else if (computerChoice === "scissors" && humanChoice === "rock") {
-        humanScore++;
-        return "You win";
+
+rock.addEventListener("click", (event) => {
+
+    if (shouldReset) {
+        playerScore = 0;
+        computerScore = 0;
+        totalRounds = 0;
+        result.replaceChildren();
+        shouldReset = false;
+    }
+
+    totalRounds += 1;
+    const resultItem = document.createElement('li');
+    const resultText = document.createElement('span');
+
+    let computerChoice = getComputerChoice();
+    if (computerChoice === "rock") {
+        resultText.textContent = `Draw, Player: ${playerScore}  Computer: ${computerScore}`;
+
+
+    } else if (computerChoice === "scissors") {
+        playerScore += 1;
+        resultText.textContent = `Player Wins, Player: ${playerScore}  Computer: ${computerScore}`;
+
+
+    } else if (computerChoice === "paper") {
+        computerScore += 1;
+        resultText.textContent = `Computer Wins, Player: ${playerScore}  Computer: ${computerScore}`;
+    }
+
+    resultItem.appendChild(resultText)
+    result.appendChild(resultItem);
+    checkRounds()
+})
+
+
+paper.addEventListener("click", () => {
+
+    if (shouldReset) {
+        playerScore = 0;
+        computerScore = 0;
+        totalRounds = 0;
+        result.replaceChildren();
+        shouldReset = false;
+    }
+
+    totalRounds += 1;
+    const resultItem = document.createElement('li');
+    const resultText = document.createElement('span');
+
+    let computerChoice = getComputerChoice();
+    if (computerChoice === "paper") {
+        resultText.textContent = `Draw, Player: ${playerScore}  Computer: ${computerScore}`;
+
+    } else if (computerChoice === "rock") {
+        playerScore += 1;
+        resultText.textContent = `Player Wins, Player: ${playerScore}  Computer: ${computerScore}`;
+
+
+    } else if (computerChoice === "scissors") {
+        computerScore += 1;
+        resultText.textContent = `Computer Wins, Player: ${playerScore}  Computer: ${computerScore}`;
+    }
+    resultItem.appendChild(resultText)
+    result.appendChild(resultItem);
+    checkRounds()
+})
+
+
+scissors.addEventListener("click", () => {
+
+    if (shouldReset) {
+        playerScore = 0;
+        computerScore = 0;
+        totalRounds = 0;
+        result.replaceChildren();
+        shouldReset = false;
+    }
+
+    totalRounds += 1;
+    const resultItem = document.createElement('li');
+    const resultText = document.createElement('span');
+
+    let computerChoice = getComputerChoice();
+    if (computerChoice === "scissors") {
+        resultText.textContent = `Draw, Player: ${playerScore}  Computer: ${computerScore}`;
+
+
+    } else if (computerChoice === "paper") {
+        playerScore += 1;
+        resultText.textContent = `Player Wins, Player: ${playerScore}  Computer: ${computerScore}`;
+
+
+    } else if (computerChoice === "rock") {
+        computerScore += 1;
+        resultText.textContent = `Computer Wins, Player: ${playerScore}  Computer: ${computerScore}`;
+
+    }
+    resultItem.appendChild(resultText)
+    result.appendChild(resultItem);
+    checkRounds()
+})
+
+
+function checkRounds() {
+    if (totalRounds === 5) {
+        const msg = document.createElement("p")
+        msg.textContent = "New round will start after any option is clicked"
+        result.appendChild(msg)
+        shouldReset = true;
     }
 }
-
-
-function playGame() {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-
-    console.log(playRound(humanSelection, computerSelection));
-    console.log("Human:", humanScore);
-    console.log("Computer:", computerScore);
-    console.log(humanSelection)
-    console.log(computerSelection)
-}
-
-playGame();
-playGame();
-playGame();
-playGame();
-playGame();
