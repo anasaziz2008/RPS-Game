@@ -51,7 +51,8 @@ rock.addEventListener("click", (event) => {
         computerScore += 1;
         resultText.textContent = `Computer Wins, Player: ${playerScore}  Computer: ${computerScore}`;
     }
-
+    resultItem.style.textAlign = "center";
+    result.style.listStyle = "none";
     resultItem.appendChild(resultText)
     result.appendChild(resultItem);
     checkRounds()
@@ -85,6 +86,8 @@ paper.addEventListener("click", () => {
         computerScore += 1;
         resultText.textContent = `Computer Wins, Player: ${playerScore}  Computer: ${computerScore}`;
     }
+    resultItem.style.textAlign = "center";
+    result.style.listStyle = "none";
     resultItem.appendChild(resultText)
     result.appendChild(resultItem);
     checkRounds()
@@ -120,6 +123,8 @@ scissors.addEventListener("click", () => {
         resultText.textContent = `Computer Wins, Player: ${playerScore}  Computer: ${computerScore}`;
 
     }
+    resultItem.style.textAlign = "center";
+    result.style.listStyle = "none";
     resultItem.appendChild(resultText)
     result.appendChild(resultItem);
     checkRounds()
@@ -134,3 +139,5 @@ function checkRounds() {
         shouldReset = true;
     }
 }
+
+
